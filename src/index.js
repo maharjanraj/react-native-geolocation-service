@@ -7,14 +7,15 @@ class GeoLocation {
   }
 
   startLocationService() {
-    NativeModules.GeoLocation.startService();
+    console.log("startLocationService")
+    return NativeModules.GeoLocation.startService();
   }
 
   stopLocationService() {
     NativeModules.GeoLocation.stopService();
   }
 
-  listenToLocationUpdate(type, id, callback) {
+  listenToLocationUpdate(callback) {
     this.startLocationService();
     this.deviceEventEmitter.addListener('updateLocation', (geoData) => {
       callback(geoData);

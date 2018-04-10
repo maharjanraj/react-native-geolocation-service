@@ -20,6 +20,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.geolocationbackgroundservice.GeoLocationService;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 
 public class GeoLocationModule extends ReactContextBaseJavaModule {
     public GeoLocationModule(ReactApplicationContext reactContext) {
@@ -41,6 +42,7 @@ public class GeoLocationModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startService(Promise promise) {
+        Log.e("GeoLo","startService Called");
         String result = "Location service started";
         try {
             Intent intent = new Intent(getReactApplicationContext(), GeoLocationService.class);

@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 public class GeoLocationService extends Service {
     public static final String FOREGROUND = "com.app_name.location.FOREGROUND";
@@ -29,6 +30,7 @@ public class GeoLocationService extends Service {
     LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
+            Log.e("GeoLocationSerivce", " data: "+ location.toString());
             GeoLocationService.this.sendMessage(location);
         }
 
@@ -49,7 +51,7 @@ public class GeoLocationService extends Service {
     @TargetApi(Build.VERSION_CODES.M)
     public void onCreate() {
         locationManager = getSystemService(LocationManager.class);
-
+        Log.e("GeoLocationService", "onCreateCalled");
         int permissionCheck = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -75,6 +77,7 @@ public class GeoLocationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e("GeoLocationService", "onStartCommand");
         startForeground(GEOLOCATION_NOTIFICATION_ID, getCompatNotification());
         return START_STICKY;
     }
